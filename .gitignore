@@ -1,0 +1,9 @@
+.DS_Store
+.vscode/
+.idea
+.jest-tmp
+*.exe
+node_modules
+dist
+coverage
+storybook-static
