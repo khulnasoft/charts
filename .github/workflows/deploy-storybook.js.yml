@@ -40,10 +40,10 @@ jobs:
         run: yarn build-storybook
 
       - name: Upload Storybook artifact
-        uses: actions/upload-pages-artifact@v3 # Updated version
+        uses: actions/upload-pages-artifact@v3 # Corrected version
         with:
           path: storybook-static
           name: storybook-build
 
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v5 # Updated version
+        uses: actions/deploy-pages@v4 # Corrected version
