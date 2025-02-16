@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   deploy:
-    environment:
+    env:
       url: ${{ steps.build-publish.outputs.page_url }}
 
     runs-on: ubuntu-latest
