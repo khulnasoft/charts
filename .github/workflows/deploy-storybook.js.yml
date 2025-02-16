@@ -12,26 +12,35 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    environment:
+      name: github-pages
+      url: ${{ steps.build-publish.outputs.page_url }}
+
     strategy:
       matrix:
-        node-version:
-          - 18.18
+        node-version: [18.18]
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Use node ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'yarn' # Enables caching for Yarn dependencies
 
-      - name: Install yarn
+      - name: Install Yarn globally
         run: npm install -g yarn
 
-      - uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build Storybook and Deploy to GitHub Pages
+        uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
         with:
-          install_command: yarn install # default: npm ci
-          build_command: yarn build-storybook # default: npm run build-storybook
-          path: storybook-static # default: dist/storybook
-          checkout: false # default: true
+          install_command: yarn install --frozen-lockfile
+          build_command: yarn build-storybook
+          path: storybook-static
+          checkout: false
           caching: true
