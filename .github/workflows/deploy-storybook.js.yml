@@ -10,9 +10,6 @@ permissions:
 
 jobs:
   deploy:
-    env:
-      url: ${{ steps.build-publish.outputs.page_url }}
-
     runs-on: ubuntu-latest
 
     strategy:
