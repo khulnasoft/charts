@@ -39,19 +39,11 @@ jobs:
       - name: Build Storybook
         run: yarn build-storybook
 
-      - name: Remove old artifact (if any)
-        continue-on-error: true
-        run: |
-          gh run artifacts --repo ${{ github.repository }} | grep "storybook-build" && \
-          gh run artifacts delete "storybook-build" --repo ${{ github.repository }} --confirm || true
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Upload Storybook artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3 # Updated version
         with:
           path: storybook-static
-          name: storybook-build # Changed artifact name
+          name: storybook-build
 
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5 # Updated version
